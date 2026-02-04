@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Final Approach — Digital Marketing</title>
+
+  <!-- 元のフォントに加えて M PLUS を読み込み（ロゴ行とキャッチにのみ適用します） -->
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@700;900&family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --font-sans-heading: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans JP", "Inter", "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      --font-sans-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans JP", "Inter", "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      --accent-cyan:#25f4ee;
+      --accent-pink:#ff2d95;
+      --page-bg:#ffffff;
+      --text:#16223b;
+      --header-height:72px;
+      --card-padding:28px;
+      --site-max-width:1200px;
+      --flow-gap:36px;
+      --card-bg:#ffffff;
+      --card-w: 340px;
+      --card-gap: 16px;
+      --per-letter-size: 1.6em;
+      --per-letter-blur: 18px;
+      --per-letter-highlight-size: 2.2em;
+      --per-letter-highlight-blur: 26px;
+      --outline-1: var(--accent-cyan);
+      --outline-2: var(--accent-pink);
+      --hero-outline: rgba(90,90,90,0.88);
+      --hero-outline-strong: rgba(70,70,70,0.9);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html{scroll-behavior:smooth;scroll-padding-top:var(--header-height);font-size:16px;}
+    body{
+      min-height:100%;
+      overflow-x:hidden;
+      background:var(--page-bg);
+      color:var(--text);
+      font-family:var(--font-sans-body);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.8;
+    }
+
+    body { color: #000; }
+
+    .tab { color: #000 !important; }
+    .tab.active { background: linear-gradient(90deg,var(--accent-cyan),var(--accent-pink)); color: #fff !important; }
+
+    header.site-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(255,255,255,0.96);backdrop-filter:blur(6px);border-bottom:1px solid #e0e4ec;z-index:50;opacity:0;transform:translateY(-10px);visibility:hidden;pointer-events:none;transition:opacity 600ms ease,transform 600ms ease;}
+    body.show-ui header.site-header{opacity:1;transform:translateY(0);visibility:visible;pointer-events:auto;}
+
+    .container{max-width:var(--site-max-width);margin:0 auto;height:100%;padding:0 20px;display:flex;align-items:center;gap:14px;}
+    .brand{display:flex;align-items:center;gap:10px;font-family:"Cormorant Garamond",serif;font-weight:700;font-size:1.6rem;}
+    .brand-logo{height:1.6rem;width:auto;display:block;}
+
+    nav.tabs{margin-left:auto;display:flex;gap:10px;}
+    .tab{padding:8px 14px;border-radius:12px;background:transparent;border:none;font-weight:700;cursor:pointer;}
+    .tab:focus{outline:2px solid rgba(37,244,238,0.5);outline-offset:2px;}
+
+    section#home{
+      margin-top: var(--header-height);
+      min-height: calc(100vh - var(--header-height));
+      padding:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+      background-image: url('HOME.PNG');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: var(--page-bg);
+    }
+
+    section#home::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.18) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-inner{position: relative;z-index: 2;text-align: center;padding: 24px;width:100%;max-width:var(--site-max-width);}
+
+    /* HERO: ロゴ行（＼ 集客 採用 認知拡大 ／）を太く強調 */
+    #logoText {
+      font-size: clamp(1.9rem, 5.0vw, 2.8rem);
+      font-family: var(--font-sans-heading);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      display: inline-block;
+      color: #fff;
+      -webkit-text-stroke: 2.2px rgba(50,50,50,0.92);
+      text-stroke: 2.2px rgba(50,50,50,0.92);
+      text-shadow:
+        0 10px 28px rgba(0,0,0,0.32),
+        0 0 18px rgba(37,244,238,0.12);
+      padding: 6px 12px;
+      border-radius: 8px;
+      z-index:3;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* キャッチコピーを太く強調 */
+    #catchText {
+      font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+      font-family: var(--font-sans-heading);
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      color: #fff;
+      -webkit-text-stroke: 1.8px rgba(50,50,50,0.9);
+      text-stroke: 1.8px rgba(50,50,50,0.9);
+      text-shadow:
+        0 10px 28px rgba(0,0,0,0.36),
+        0 0 18px rgba(255,45,149,0.08);
+      display:inline-block;
+      padding:10px 20px;
+      border-radius:20px;
+      z-index:2;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* Emphasize hero title but keep per-letter effects */
+    .hero-title{font-size:clamp(3.2rem,9.5vw,6.0rem);font-weight:900;font-family:var(--font-sans-heading);margin-top:28px;margin-bottom:12px;color:#ffffff;line-height:1.03;display:inline-block;position:relative;z-index:2;}
+
+    .per-letter.big {
+      display:inline-block;
+      font-weight:900;
+      transform-origin:center;
+      font-size: 1.45em;
+      line-height: 1;
+      vertical-align: middle;
+      transform: translateY(-6px);
+      -webkit-text-stroke-width: 2.6px;
+      text-stroke-width: 2.6px;
+      -webkit-text-stroke-color: rgba(85,85,85,0.92);
+      text-stroke-color: rgba(85,85,85,0.92);
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.95),
+        0 6px 18px rgba(0,0,0,0.22);
+      z-index:4;
+    }
+
+    .per-letter.highlight {background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));-webkit-background-clip: text;-webkit-text-fill-color: transparent;position: relative;z-index: 3;-webkit-text-stroke: 0.6px rgba(0,0,0,0.18);text-shadow: 0 2px 6px rgba(0,0,0,0.18);}
+
+    .per-letter.lower {
+      display:inline-block;
+      transform: translateY(0.18em);
+      -webkit-transform: translateY(0.18em);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      z-index:2;
+    }
+
+    #heroTitle .per-letter.lower {
+      transform: translateY(0.20em);
+      -webkit-transform: translateY(0.20em);
+    }
+
+    /* 強制的に per-letter でも太く見えるようにする */
+    #logoText .per-letter,
+    #logoText .per-letter * {
+      font-family: var(--font-sans-heading) !important;
+      font-weight: 900 !important;
+      -webkit-text-stroke: 2.2px rgba(50,50,50,0.92) !important;
+      text-stroke: 2.2px rgba(50,50,50,0.92) !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: white !important;
+      text-shadow:
+        0 10px 28px rgba(0,0,0,0.32) !important;
+    }
+
+    #catchText .per-letter,
+    #catchText .per-letter * {
+      font-family: var(--font-sans-heading) !important;
+      font-weight: 900 !important;
+      -webkit-text-stroke: 1.8px rgba(50,50,50,0.9) !important;
+      text-stroke: 1.8px rgba(50,50,50,0.9) !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: white !important;
+      text-shadow:
+        0 10px 28px rgba(0,0,0,0.36) !important;
+    }
+
+    /* keep other existing styles (rest of page) */
+    main{width:100%;padding:48px 20px 120px;opacity:0;transform:translateY(12px);transition:opacity 600ms ease,transform 600ms ease;}
+    body.show-ui main{opacity:1;transform:translateY(0);}
+    .site-inner{max-width:var(--site-max-width);margin:0 auto;padding:0 20px;}
+    .content-wrap{display:grid;gap:40px;}
+    #mainPage:focus{outline:none!important;}
+
+    section{position:relative;padding:var(--card-padding);margin:0 auto 40px;opacity:0;transition:opacity 0.9s ease,transform 0.6s ease;scroll-margin-top:var(--header-height);min-height:40vh;background:#ffffff;border-radius:0;box-shadow:none;width:100%;box-sizing:border-box;transform:translateY(8px);}
+    section.revealed{opacity:1;transform:translateY(0);}
+
+    h2{display:inline-block;font-size:1.6rem;margin-top:36px;margin-bottom:46px;position:relative;padding-bottom:10px;}
+    h2::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:6px;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));border-radius:6px;transform:translateY(6px);opacity:0.95;}
+
+    /* 以下は元のスタイルを維持（省略せずに残しています） */
+    .aisatsu-flex{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;justify-content:flex-start;}
+    .aisatsu-photo{flex:0 0 320px;max-width:320px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;align-items:center;background:var(--card-bg);padding:6px;}
+    .aisatsu-photo img{display:block;width:100%;height:auto;object-fit:cover;border-radius:8px;}
+    .aisatsu-meta{flex:1 1 520px;min-width:280px;display:flex;flex-direction:column;gap:12px;justify-content:center;}
+    .meta-title{font-family:"Cormorant Garamond",serif;font-weight:800;color:#071029;font-size:1.18rem;letter-spacing:0.6px;display:inline-block;position:relative;padding-bottom:6px;}
+    .meta-title::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));border-radius:3px;opacity:0.98;transform-origin:left center;}
+    .meta-name{font-family:var(--font-sans-heading);font-weight:900;color:#071029;font-size:2.1rem;line-height:1;margin-top:2px;letter-spacing:0.4px;text-shadow:0 6px 18px rgba(6,12,34,0.04);}
+
+    .meta-title-wrap{display:flex;align-items:center;gap:12px;}
+    .company-icon{width:40px;height:40px;display:inline-block;flex:0 0 auto;}
+    .company-icon img{width:100%;height:100%;object-fit:contain;display:block;}
+    .career-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:linear-gradient(180deg, rgba(6,12,34,0.03), rgba(6,12,34,0.01));color:#000;font-weight:600;font-size:0.95rem;box-shadow:0 6px 18px rgba(6,12,34,0.03);position:relative;}
+    .badge::before{content:"";width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));box-shadow:0 4px 10px rgba(37,244,238,0.12);display:inline-block;}
+
+    .rep-claim{
+      font-family:"Cormorant Garamond",serif;
+      font-weight:800;
+      font-size:clamp(1.1rem,2.2vw,1.5rem);
+      line-height:1.05;
+      margin-top:28px;
+      margin-bottom:0.6em;
+      color:#000;
+      display:inline-block;
+      position:relative;
+      padding-bottom:6px;
+    }
+    .rep-claim::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
+      border-radius: 3px;
+      opacity: 0.98;
+      transform-origin: left center;
+    }
+    .rep-claim .accent{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;padding-left:6px;}
+
+    .rep-lead{color:#000;font-size:1rem;line-height:1.9;margin-top:12px;margin-bottom:18px;}
+    .rep-lead p{Margin:0 0 0.8rem 0;}
+
+    #services{padding-top:28px;padding-bottom:48px;}
+    #services .aisatsu-flex{gap:40px;align-items:flex-start;}
+    #services .aisatsu-photo{flex:0 0 420px;max-width:420px;border-radius:10px;overflow:hidden;}
+    #services .aisatsu-photo img{width:100%;height:420px;object-fit:cover;display:block;border-radius:10px;}
+    #services .aisatsu-content{flex:1 1 520px;min-width:320px;max-width:calc(100% - 460px);padding-left:18px;box-sizing:border-box;}
+
+    .service-title{font-family:var(--font-sans-heading);font-weight:800;font-size:clamp(1.1rem,2.2vw,1.6rem);color:#071029;display:inline-block;}
+    .service-sub{margin:0;color:#000;font-size:1rem;line-height:1.8;font-weight:400;}
+
+    .service-flow{display:flex;flex-direction:column;gap:var(--flow-gap);margin-top:48px;}
+
+    .flow-heading{font-size: clamp(1.6rem, 4.0vw, 2.2rem);font-weight: 800;color: #071029;margin: 0 0 18px 0;padding-bottom: 8px;position: relative;display: inline-block;letter-spacing: 0.2px;}
+    .flow-heading::after{content: "";position: absolute;left: 0;bottom: 0;height: 4px;width: 48%;background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));border-radius: 4px;opacity: 0.98;transform-origin: left center;}
+    .flow-row{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;opacity:0;transform:translateX(-24px);transition:transform 700ms cubic-bezier(.2,.9,.2,1),opacity 600ms ease;}
+    .flow-row.in-view{opacity:1;transform:translateX(0);}
+    .flow-row--reverse{flex-direction:row-reverse;transform:translateX(24px);}
+
+    .flow-row .flow-photo{flex:0 0 44%;max-width:44%;border-radius:10px;overflow:hidden;background:var(--card-bg);display:flex;align-items:center;justify-content:center;padding:8px;content:center;padding:8px;}
+    .flow-row .flow-photo img{width:100%;height:auto;display:block;object-fit:cover;border-radius:8px;}
+    .flow-row .flow-text{flex:1 1 48%;max-width:48%;font-weight:700;font-family:var(--font-sans-heading);color:#071029;font-size:1.05rem;}
+    .flow-title{font-size:1.05rem;margin:0 0 8px 0;color:#071029;font-weight:800;position:relative;padding-left:18px;}
+    .flow-title::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));box-shadow:0 4px 12px rgba(37,244,238,0.12);}
+    .flow-title::after{content:"";position:absolute;left:0;bottom:-6px;width:60%;height:2px;border-radius:2px;background:linear-gradient(90deg, rgba(37,244,238,0.95), rgba(255,45,149,0.95));opacity:0.95;transform-origin:left center;transition:width .36s cubic-bezier(.2,.9,.2,1),opacity .28s ease;}
+    .flow-row:hover .flow-title::after{ width:100%; opacity:1; }
+
+    .flow-desc{margin:0;color:#000;font-size:0.98rem;line-height:1.6;font-weight:400;}
+
+    .company-card{display:grid;grid-template-columns: 140px 1fr;row-gap:16px;column-gap:24px;align-items:start;max-width:760px;background:var(--page-bg);border-radius:12px;padding:20px;box-shadow:none;border:0;color:#000;margin-top:18px;font-family:var(--font-sans-body);line-height:1.9;}
+    .company-card dt{font-weight:700;color:#000;font-family:var(--font-sans-body);font-size:0.98rem;padding-top:6px;}
+    .company-card dd{margin:0;font-weight:400;color:#000;line-height:1.9;font-size:0.98rem;padding-top:6px;}
+    .company-card .email{color:#000;word-break:break-all;}
+    .company-card .tel{font-weight:400;color:#000;}
+    .company-card .website a{color:#071029;text-decoration:none;font-weight:400;}
+
+    .contact-form{width:100%;max-width:760px;margin:18px auto;margin-top:18px;display:flex;flex-direction:column;gap:14px;font-family:var(--font-sans-body);}
+    .contact-form .form-row{display:flex;flex-direction:column;gap:6px;}
+    .contact-form label{font-size:0.95rem;color:#000;}
+    .contact-form input[type="text"],.contact-form input[type="tel"],.contact-form input[type="email"],.contact-form textarea{border:1px solid rgba(6,12,34,0.28);background:var(--page-bg);padding:12px 14px;border-radius:8px;font-size:1rem;color:#000;outline:none;transition:box-shadow .12s ease, border-color .12s ease;}
+    .contact-form input:focus,.contact-form textarea:focus{border-color:var(--accent-cyan);box-shadow:0 6px 18px rgba(37,244,238,0.06);}
+    .form-actions{display:flex;gap:12px;align-items:center;margin-top:6px;}
+    .form-note{font-size:0.95rem;color:#000;margin-top:6px;}
+
+    .cases-carousel {margin-top:12px;position:relative;width:100%;max-width:1100px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;}
+    .carousel-viewport{width: calc(var(--card-w) * 3 + var(--card-gap) * 2);max-width:100%;overflow:hidden;border-radius:10px;padding:12px 0;box-sizing:content-box;}
+    .carousel-track{display:flex;gap:var(--card-gap);padding:0;transition:transform 420ms cubic-bezier(.22,.9,.3,1);will-change:transform;align-items:flex-start;overflow:visible !important;}
+    .carousel-card{flex: 0 0 var(--card-w);max-width:var(--card-w);background:var(--card-bg);border-radius:8px;padding:10px;display:flex;flex-direction:column;align-items:stretch;text-decoration:none;color:inherit;box-shadow:0 6px 18px rgba(6,12,34,0.02);transition:transform .18s ease;overflow:visible !important;}
+    .carousel-card img{width:100%;height:360px;object-fit:contain;border-radius:6px;background:#fff;display:block;transition:transform .22s ease,box-shadow .22s ease;}
+
+    .card-image { overflow:visible !important; border-radius:6px; display:block; }
+
+    .carousel-card:hover,
+    .carousel-card:focus {
+      transform: none !important;
+      box-shadow: 0 6px 18px rgba(6,12,34,0.02) !important;
+    }
+
+    .card-image,
+    .card-image a {
+      pointer-events: auto;
+      display: block;
+    }
+
+    .card-image a img {
+      transition: transform .26s cubic-bezier(.2,.9,.2,1), box-shadow .26s cubic-bezier(.2,.9,.2,1), filter .18s ease;
+      will-change: transform, box-shadow;
+    }
+
+    .card-image a:hover img[src*="evidence"],
+    .card-image a:focus img[src*="evidence"],
+    .card-image a:focus-within img[src*="evidence"],
+    .carousel-card:hover img[src*="evidence"] {
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: 0 22px 48px rgba(6,12,34,0.14);
+      filter: saturate(1.03) contrast(1.02);
+    }
+
+    .card-image a:focus img[src*="evidence"],
+    .card-image a:active img[src*="evidence"],
+    .card-image a:focus-within img[src*="evidence"],
+    .card-image a:visited img[src*="evidence"] {
+      transform: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      transition: none !important;
+      outline: none !important;
+    }
+
+    .card-image a:focus {
+      outline: 3px solid rgba(37,244,238,0.14);
+      outline-offset: 6px;
+      border-radius: 8px;
+    }
+
+    .carousel-card .carousel-caption *:hover,
+    .carousel-card .carousel-caption *:focus {
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    .carousel-caption{
+      margin-top:12px;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      align-items:flex-start;
+      text-align:left;
+      padding:8px 12px;
+      background: transparent;
+      overflow:visible !important;
+      color: #000;
+    }
+
+    .carousel-channel{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      color:#000;
+      font-size: clamp(0.95rem, 1.2vw + 0.6rem, 1.05rem);
+      line-height:1;
+      min-height: 1.2em;
+      width:100%;
+      justify-content:flex-start;
+      overflow: visible;
+    }
+
+    .carousel-channel .channel-icon{
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      object-fit:cover;
+      border:1px solid rgba(6,12,34,0.06);
+      background:#fff;
+      flex:0 0 36px;
+    }
+
+    .carousel-channel .channel-name{
+      display:inline-block;
+      white-space:normal;
+      overflow:visible;
+      text-overflow:clip;
+      max-width:none;
+      vertical-align:middle;
+      position:relative;
+      padding-bottom:10px;
+      z-index:2;
+      overflow-wrap:anywhere;
+      word-break:break-word;
+      text-align:left;
+      color:#000;
+    }
+
+    .carousel-channel .channel-name .underline-bar{
+      display:block;
+      height:3px;
+      border-radius:3px;
+      width:100%;
+      margin-top:6px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
+      pointer-events:none;
+      z-index:3;
+    }
+
+    .carousel-meta{
+      align-self:flex-start;
+      text-align:left;
+      display:flex;
+      gap:8px;
+      margin-top:6px;
+      flex-wrap:wrap;
+      justify-content:flex-start;
+      color:#000;
+    }
+    .meta-badge {
+      background:transparent;
+      color:#000;
+      font-weight:700;
+      font-size:1.02rem;
+      padding:0;
+      border-radius:999px;
+      border: 0;
+      box-shadow: none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .meta-badge .meta-label {
+      display:inline-block;
+      background: linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));
+      color:#fff;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:0.95rem;
+      line-height:1;
+    }
+    .meta-badge .meta-value {
+      display:inline-block;
+      color:#000;
+      font-weight:700;
+      padding-left:8px;
+      font-size:1.02rem;
+    }
+
+    .meta-intro {
+      background:transparent;
+      color:#000;
+      font-weight:700;
+      font-size:1.02rem;
+      padding:0;
+      border-radius:999px;
+      border: 0;
+      box-shadow: none;
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+      margin-top:6px;
+      white-space:pre-line;
+      flex-direction:row;
+      width:100%;
+      justify-content:flex-start;
+    }
+    .meta-intro .meta-label {
+      display:inline-block;
+      background: linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));
+      color:#fff;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:0.95rem;
+      line-height:1;
+      flex:0 0 auto;
+    }
+    .meta-intro .intro-text {
+      display:inline-block;
+      text-align:left;
+      line-height:1.4;
+      color:#000;
+      font-weight:700;
+      padding-left:8px;
+      white-space:pre-line;
+      flex:1 1 auto;
+    }
+
+    .carousel-controls{
+      position:absolute;
+      top:36%;
+      left:0;
+      right:0;
+      transform:translateY(-50%);
+      display:flex;
+      justify-content:space-between;
+      pointer-events:none;
+    }
+
+    .carousel-btn{
+      pointer-events:auto;
+      background:rgba(255,255,255,0.95);
+      border:2px solid rgba(0,0,0,0.28);
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 6px;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(6,12,34,0.04);
+    }
+    .carousel-btn svg{ width:18px;height:18px;fill:#071029; }
+
+    .carousel-btn:hover{
+      border-color: rgba(0,0,0,0.42);
+      box-shadow: 0 10px 24px rgba(6,12,34,0.06);
+    }
+
+    @media (max-width:1200px){
+      :root{ --site-max-width:960px; }
+      :root{ --card-w: calc((100% - 12px) / 2); }
+      .carousel-viewport { width: calc(var(--card-w) * 2 + var(--card-gap) * 1); }
+      .carousel-card{ flex: 0 0 var(--card-w); max-width: none; }
+      .carousel-card img{ height:320px; }
+      .carousel-track{ gap:12px; }
+      .hero-title{ font-size:clamp(2.8rem,8.5vw,4.8rem); }
+      .carousel-channel { font-size: clamp(0.92rem, 1.1vw + 0.6rem, 1.02rem); }
+      .carousel-channel .channel-name { max-width:none; }
+      .carousel-channel .channel-icon { width:32px; height:32px; flex:0 0 32px; }
+      .carousel-meta{ font-size:0.98rem; }
+      .per-letter.big { font-size: 1.25em; transform: translateY(-4px); -webkit-text-stroke-width: 2.2px; text-stroke-width: 2.2px; }
+      #heroTitle .per-letter.lower { transform: translateY(0.18em); -webkit-transform: translateY(0.18em); }
+      .per-letter.lower { transform: translateY(0.16em); -webkit-transform: translateY(0.16em); }
+      #logoText, #logoText .per-letter { font-size: clamp(1.7rem, 4.2vw, 2.4rem); -webkit-text-stroke:1.8px; text-stroke:1.8px; }
+      #catchText, #catchText .per-letter { font-size: clamp(1.5rem, 3.2vw, 2.0rem); -webkit-text-stroke:1.4px; text-stroke:1.4px; }
+    }
+
+    @media (max-width:720px){
+      :root{ --site-max-width:720px; }
+      :root{ --card-w: 100%; }
+      .carousel-viewport { width: 100%; padding: 12px; }
+      .carousel-card{ flex: 0 0 100%; max-width: none; }
+      .carousel-card img{ height:520px; }
+      .hero-title{ font-size:clamp(2.0rem,10vw,3.6rem); }
+      .catch{ font-size:clamp(1.4rem,6.5vw,1.7rem); padding:8px 18px; }
+      .carousel-channel { font-size: clamp(0.9rem, 2.8vw, 1rem); }
+      .carousel-channel .channel-name { max-width:none; }
+      .carousel-channel .channel-icon { width:28px; height:28px; flex:0 0 28px; }
+      .carousel-meta{ font-size:0.96rem; }
+
+      .carousel-controls{
+        top:30%;
+      }
+
+      .per-letter.big { font-size: 1.12em; transform: translateY(-2px); -webkit-text-stroke-width: 1.6px; text-stroke-width: 1.6px; }
+      #logoText { font-size: clamp(1.2rem, 7.5vw, 2.0rem); -webkit-text-stroke:1.2px; text-stroke:1.2px; }
+      .catch { font-size: clamp(1.1rem, 5.5vw, 1.4rem); padding:10px 16px; -webkit-text-stroke:1.0px; text-stroke:1.0px; }
+      #heroTitle .per-letter.lower { transform: translateY(0.16em); -webkit-transform: translateY(0.16em); }
+      .per-letter.lower { transform: translateY(0.14em); -webkit-transform: translateY(0.14em); }
+    }
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+    .per-letter {display:inline-block;position:relative;color:inherit;z-index:3;padding:0 0.02em;transform:translateZ(0);white-space:pre;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    .per-letter::before {content: "";position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%) translateY(6px);width: var(--per-letter-size);height: var(--per-letter-size);z-index: -2;border-radius: 50%;background: radial-gradient(circle at 40% 35%, rgba(37,244,238,0.95) 0%, rgba(255,45,149,0.18) 40%, rgba(255,45,149,0.06) 60%, transparent 70%);filter: blur(var(--per-letter-blur));opacity: 0.95;transition: transform 360ms cubic-bezier(.2,.9,.2,1), opacity 360ms ease;pointer-events: none;mix-blend-mode: screen;}
+    .per-letter.highlight::before {width: var(--per-letter-highlight-size);height: var(--per-letter-highlight-size);filter: blur(var(--per-letter-highlight-blur));background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.98) 0%, rgba(37,244,238,0.95) 18%, rgba(255,45,149,0.28) 48%, rgba(255,45,149,0.08) 68%, transparent 78%);opacity: 1;transform: translate(-50%, -50%) translateY(4px);}
+    .per-letter.highlight {background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));-webkit-background-clip: text;-webkit-text-fill-color: transparent;position: relative;z-index: 3;-webkit-text-stroke: 0.6px rgba(0,0,0,0.18);text-shadow: 0 2px 6px rgba(0,0,0,0.18);}
+    .per-letter.highlight::after {content: "";position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);width: 100%;height: 100%;z-index: 2;border-radius: 4px;background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02));pointer-events: none;}
+
+    .headline-ambient { display: none !important; }
+
+    #heroTitle .per-letter::before, #heroTitle .per-letter.highlight::before { display: none !important; background: transparent !important; filter: none !important; opacity: 0 !important; }
+    #heroTitle .per-letter { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; text-shadow: none !important; filter: none !important; }
+    #heroTitle .per-letter.highlight { background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink)) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; filter: none !important; }
+
+    #logoText .per-letter::before,
+    #catchText .per-letter::before {
+      display: none !important;
+      background: transparent !important;
+      filter: none !important;
+      opacity: 0 !important;
+    }
+    #logoText .per-letter,
+    #catchText .per-letter {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      text-shadow: none !important;
+      filter: none !important;
+      -webkit-text-stroke: none !important;
+    }
+
+    #logoText {
+      font-variant-ligatures: none;
+    }
+
+    #heroTitle,
+    #heroTitle .per-letter {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      -webkit-text-stroke: 2.4px rgba(85,85,85,0.92) !important;
+      text-stroke: 2.4px rgba(85,85,85,0.92) !important;
+      text-shadow:
+        0 0 6px rgba(255,255,255,0.95),
+        0 0 16px rgba(255,255,255,0.75),
+        0 0 32px rgba(255,255,255,0.45),
+        0 0 48px rgba(37,244,238,0.14),
+        0 10px 28px rgba(0,0,0,0.28);
+      filter: drop-shadow(0 12px 36px rgba(255,255,255,0.12));
+      -webkit-font-smoothing:antialiased;
+      font-weight:900;
+    }
+
+    #logoText,
+    #logoText .per-letter {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      -webkit-text-stroke: 2.0px rgba(90,90,90,0.9) !important;
+      text-stroke: 2.0px rgba(90,90,90,0.9) !important;
+      text-shadow:
+        0 0 6px rgba(255,255,255,0.92),
+        0 0 12px rgba(255,255,255,0.6),
+        0 0 22px rgba(37,244,238,0.08),
+        0 6px 18px rgba(0,0,0,0.22);
+      filter: drop-shadow(0 8px 22px rgba(255,255,255,0.08));
+      font-weight:900;
+    }
+
+    #catchText,
+    #catchText .per-letter {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      -webkit-text-stroke: 1.8px rgba(95,95,95,0.88) !important;
+      text-stroke: 1.8px rgba(95,95,95,0.88) !important;
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.95),
+        0 0 14px rgba(255,255,255,0.6),
+        0 0 22px rgba(255,45,149,0.06),
+        0 6px 18px rgba(0,0,0,0.22);
+      filter: drop-shadow(0 8px 22px rgba(255,255,255,0.06));
+      font-weight:900;
+    }
+
+    #heroTitle .per-letter.highlight,
+    #logoText .per-letter.highlight,
+    #catchText .per-letter.highlight {
+      -webkit-text-stroke: 1.2px rgba(80,80,80,0.9) !important;
+      text-stroke: 1.2px rgba(80,80,80,0.9) !important;
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.95),
+        0 0 18px rgba(255,255,255,0.6),
+        0 0 30px rgba(37,244,238,0.18);
+      filter: drop-shadow(0 10px 26px rgba(255,255,255,0.10));
+    }
+
+    .btn-primary { background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink)); color:#fff; border:none; padding:10px 16px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .btn-secondary { background: transparent; border:1px solid rgba(6,12,34,0.08); padding:10px 16px; border-radius:8px; cursor:pointer; }
+
+    .meta-name-row { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+    .social-links { display:inline-flex; gap:12px; align-items:center; }
+    .social-links a { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
+    .social-links img { height:1.4em; width:auto; display:block; vertical-align:middle; }
+    .social-links a:focus { outline:3px solid rgba(37,244,238,0.14); outline-offset:4px; border-radius:6px; }
+
+    @media (max-width:720px){
+      .meta-name-row { gap:12px; }
+      .social-links img { height:1.2em; }
+    }
+
+    /* === フォントのみの変更（レイアウトは一切変更しない） ===
+       #logoText と #catchText にだけ M PLUS を適用します。
+       それ以外のスタイル（サイズ、ストローク、配置等）は変更していません。
+    */
+    #logoText,
+    #logoText .per-letter,
+    #catchText,
+    #catchText .per-letter {
+      font-family: 'M PLUS 1p', var(--font-sans-heading) !important;
+    }
+
+  </style>
+</head>
+<body class="show-ui">
+  <header class="site-header" aria-hidden="false">
+    <div class="container">
+      <div class="brand">
+        <img src="Final Approach.png" alt="企業ロゴ" class="brand-logo">
+        Final Approach
+      </div>
+      <nav class="tabs" aria-label="サイト内ナビゲーション">
+        <button class="tab" data-target="home" data-index="0">ホーム</button>
+        <button class="tab" data-target="aisatsu" data-index="1">代表あいさつ</button>
+        <button class="tab" data-target="services" data-index="2">サービス</button>
+        <button class="tab" data-target="cases" data-index="3">実績</button>
+        <button class="tab" data-target="about" data-index="4">会社概要</button>
+        <button class="tab" data-target="contact" data-index="5">お問い合わせ</button>
+      </nav>
+    </div>
+  </header>
+
+  <section id="home" class="hero-text" data-index="0">
+    <div class="hero-inner">
+      <div class="headline-wrap" aria-hidden="false" style="position:relative;display:inline-block;">
+        <div class="headline-ambient" aria-hidden="true"></div>
+        <div class="logo auto-per-letter" id="logoText">＼ 集客 採用 認知拡大 ／</div>
+        <h1 class="hero-title auto-per-letter" id="heroTitle" aria-label="Digital Marketing">Digital Marketing</h1>
+        <p class="catch auto-per-letter" id="catchText">あなたのブランドに、最高のストーリーを。</p>
+      </div>
+    </div>
+  </section>
+
+  <main id="mainPage" class="page" aria-hidden="false" tabindex="-1">
+    <div class="site-inner">
+      <div class="content-wrap">
+
+        <section id="aisatsu" data-index="1">
+          <h2>代表あいさつ</h2>
+          <div class="aisatsu-flex" style="margin-top:12px;">
+            <div class="aisatsu-photo" aria-hidden="false"><img src="representative.jpg" alt="代表の写真"></div>
+            <div class="aisatsu-meta" aria-label="代表情報">
+              <div class="meta-title-wrap">
+                <div class="meta-title">Final Approach 代表</div>
+                <div class="company-icon" aria-hidden="false"><img src="Final Approach.png" alt="Final Approach ロゴ"></div>
+              </div>
+
+              <div class="meta-name-row" style="margin-top:6px;">
+                <div class="meta-name" id="repName">古川 成児</div>
+
+                <div class="social-links" aria-label="代表のソーシャルリンク">
+                  <a href="https://www.tiktok.com/@atsuatsu_pe_teacher" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                    <img src="TikTok_icon.png" alt="TikTok">
+                  </a>
+                  <a href="https://line.me/R/ti/p/@499lecaj?oat_content=url&ts=03172215" target="_blank" rel="noopener noreferrer" aria-label="LINE">
+                    <img src="LINE_icon.png" alt="LINE">
+                  </a>
+                  <a href="https://www.instagram.com/p.e_teacher_hot/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <img src="Instagram_icon.png" alt="Instagram">
+                  </a>
+                  <a href="https://www.youtube.com/@tv1st385" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <img src="YouTube_icon.png" alt="YouTube">
+                  </a>
+                </div>
+              </div>
+
+              <div class="career-badges" aria-hidden="false">
+                <span class="badge">愛媛県 / 大阪府出身</span>
+                <span class="badge">元 高校球児</span>
+                <span class="badge">元 中学校 保健体育教諭</span>
+                <span class="badge">元 民間企業 TOP セールス</span>
+                <span class="badge">エリアサブリーダー（人材育成）</span>
+                <span class="badge">現役 TikToker</span>
+                <span class="badge">SNS 総フォロワー 3 万人超</span>
+                <span class="badge">TikTok マーケター / 動画クリエイター</span>
+              </div>
+              <div class="rep-claim">1本のコンテンツで<span class="accent">“語ろう”</span>じゃないか！</div>
+              <div class="rep-lead" style="margin-top:12px;">
+                <p>この度は当ホームページをご覧いただき誠にありがとうございます。</p>
+                <p>はじめに、我々はSNSマーケティングの⼒で、お客様の「課題解決」と「成⻑」を全⼒でサポートさせていただきます。SNSを効果的に活⽤し、最新の技術やトレンドと独⾃の戦略で、更なる効果的なコミュニケーションと結果をお届けすることをお約束いたします。</p>
+                <p>共に新たな可能性を切り拓きましょう。引き続き、今後ともよろしくお願いいたします。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="services" data-index="2" aria-labelledby="services-heading">
+          <div class="site-inner">
+            <h2 id="services-heading">サービス</h2>
+
+            <div class="aisatsu-flex" style="margin-top:12px;">
+              <div class="aisatsu-content">
+                <div><span class="service-title rep-claim">ショート動画広告マーケティング支援サービス</span></div>
+                <div class="service-sub" style="margin-top:12px;">
+                  <p>SNS時代の集客は「短く、伝わる」が鍵。<br>
+                  当サービスでは、30〜60秒の縦型ショート動画を活用し、<br>
+                  商品・サービス・想いを“見た人の記憶に残る形”で届けます。</p>
+
+                  <p>企画・台本作成から撮影・編集までを一括対応。<br>
+                  TikTok・Instagram・YouTube Shortsなど、各SNSに最適化した動画を制作します。</p>
+
+                  <ul style="margin-top:8px;margin-bottom:8px;padding-left:18px;color:#000;">
+                    <li>視聴者の興味を引く構成</li>
+                    <li>広告っぽくなすぎないストーリー設計</li>
+                    <li>集客・採用・ブランディングに対応</li>
+                  </ul>
+
+                  <p>「何を伝えればいいかわからない」そんな方でも安心してご利用いただけます。</p>
+                </div>
+              </div>
+              <div class="aisatsu-photo" aria-hidden="false"><img src="service-photo1.png" alt="ショート動画広告イメージ"></div>
+            </div>
+
+            <div class="aisatsu-flex" style="margin-top:28px;">
+              <div class="aisatsu-photo" aria-hidden="false"><img src="service-photo2.png" alt="TikTokオーガニックマーケティングイメージ"></div>
+              <div class="aisatsu-content">
+                <div><span class="service-title rep-claim">TikTokオーガニックマーケティング支援サービス</span></div>
+                <div class="service-sub" style="margin-top:12px;">
+                  <p>広告に頼らず、“自然に届く動画”でファンと集客を増やす。<br>
+                  当サービスは、TikTokを活用したオーガニック（非広告）マーケティングに特化した支援を<br>
+        行っています。</p>
+
+                  <p>アルゴリズムを意識した企画設計と、視聴者の「最後まで見たくなる」構成で、
+        認知・集客・ファン化につながる動画を継続的に発信します。
+        企画立案・台本作成・投稿設計までサポート。</p>
+
+                  <p>「何を投稿すればいいかわからない」状態からでも始められます。</p>
+
+                  <ul style="margin-top:8px;margin-bottom:8px;padding-left:18px;color:#000;">
+                    <li>広告費ゼロで長期的な集客導線を構築</li>
+                    <li>業種・目的に合わせたコンテンツ設計</li>
+                    <li>バズ狙いではなく“成果重視”の運用</li>
+                  </ul>
+
+                  <p><strong>TikTokを、一過性ではない資産型メディアへ</strong></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="service-flow" role="list" aria-label="TikTok運用のフロー">
+              <div class="flow-heading">サービスフロー</div>
+
+              <div class="flow-row" data-flow="1" aria-labelledby="flow-1-title">
+                <div class="flow-photo" aria-hidden="false"><img src="flow-1.jpg" alt="ヒアリングのイメージ写真"></div>
+                <div class="flow-text">
+                  <h3 id="flow-1-title" class="flow-title">ヒアリング・フォロー</h3>
+                  <p class="flow-desc">目標やターゲット、ブランドのトーン、スケジュールを丁寧に伺い、運用方針を固めます。導入後も定期的にフォローします。</p>
+                </div>
+              </div>
+
+              <div class="flow-row flow-row--reverse" data-flow="2" aria-labelledby="flow-2-title">
+                <div class="flow-photo" aria-hidden="false"><img src="flow-2.jpg" alt="企画・撮影のイメージ写真"></div>
+                <div class="flow-text">
+                  <h3 id="flow-2-title" class="flow-title">企画・台本・撮影</h3>
+                  <p class="flow-desc">短尺で効果的な企画と出演者に優しい台本を作成。撮影は当社がディレクションし、出演は最小限の負担で済むよう進行します。</p>
+                </div>
+              </div>
+
+              <div class="flow-row" data-flow="3" aria-labelledby="flow-3-title">
+                <div class="flow-photo" aria-hidden="false"><img src="flow-3.jpg" alt="編集・投稿のイメージ写真"></div>
+                <div class="flow-text">
+                  <h3 id="flow-3-title" class="flow-title">編集・投稿・分析</h3>
+                  <p class="flow-desc">編集、最適な投稿時間の選定、ハッシュタグ設計、広告運用までワンストップで実行し、効果を数値で追います。</p>
+                </div>
+              </div>
+
+              <div class="flow-row flow-row--reverse" data-flow="4" aria-labelledby="flow-4-title">
+                <div class="flow-photo" aria-hidden="false"><img src="flow-4.jpg" alt="フィードバックのイメージ写真"></div>
+                <div class="flow-text">
+                  <h3 id="flow-4-title" class="flow-title">フィードバック</h3>
+                  <p class="flow-desc">定期レポートと改善提案をもとに、次回の企画や投稿方針を調整。PDCAを回して成果を最大化します。</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <section id="cases" data-index="3">
+          <h2>導入事例 / 実績</h2>
+
+          <div class="cases-carousel" aria-roledescription="carousel" aria-label="導入事例カルーセル">
+            <div class="carousel-viewport" id="carouselViewport">
+              <div class="carousel-track" id="carouselTrack" role="list"></div>
+            </div>
+            <div class="carousel-controls" aria-hidden="false">
+              <button class="carousel-btn" id="carouselPrev" aria-label="前へ">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+              </button>
+              <button class="carousel-btn" id="carouselNext" aria-label="次へ">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+              </button>
+            </div>
+
+            <p class="sr-only" id="carouselStatus">現在 1 / 7</p>
+          </div>
+
+        </section>
+
+        <section id="about" data-index="4" aria-labelledby="about-heading">
+          <h2 id="about-heading">会社概要</h2>
+          <dl class="company-card" aria-label="会社情報">
+            <dt>社名</dt><dd>Final Approach</dd>
+            <dt>住所</dt><dd>大阪府大阪市北区梅田1丁目2番21号 大阪駅前第2ビル12-12</dd>
+            <dt>代表者</dt><dd>古川　成児</dd>
+            <dt>電話番号</dt><dd class="tel">090-5162-2219</dd>
+            <dt>メールアドレス</dt><dd class="email">atsuatsu.pe.teacher@gmail.com</dd>
+            <dt>ウェブサイト</dt><dd class="website"><a href="https://www.google.com/?hl=ja" target="_blank" rel="noopener noreferrer">https://www.google.com/?hl=ja</a></dd>
+            <dt>設立日</dt><dd>20××年××月××日</dd>
+          </dl>
+        </section>
+
+        <section id="contact" data-index="5" aria-labelledby="contact-heading">
+          <h2 id="contact-heading">お問い合わせ</h2>
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-row"><label for="cf-name">お名前</label><input id="cf-name" name="name" type="text" required autocomplete="name" /></div>
+            <div class="form-row"><label for="cf-tel">電話番号</label><input id="cf-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" /></div>
+            <div class="form-row"><label for="cf-email">メールアドレス</label><input id="cf-email" name="email" type="email" required autocomplete="email" /></div>
+            <div class="form-row"><label for="cf-message">お問い合わせ内容</label><textarea id="cf-message" name="message" rows="6" required></textarea></div>
+            <div class="form-actions"><button type="submit" class="btn-primary">送信</button><button type="reset" class="btn-secondary">リセット</button></div>
+            <p class="form-note" aria-live="polite"></p>
+          </form>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      (function markEvidenceImages(){
+        try {
+          var imgs = document.querySelectorAll('img');
+          for (var i = 0; i < imgs.length; i++) {
+            var s = imgs[i].getAttribute('src') || '';
+            if (/evidence/i.test(s)) {
+              imgs[i].classList.add('evidence-img');
+              var a = imgs[i].closest('a');
+              if (a) a.classList.add('evidence-link');
+            }
+          }
+        } catch (e) {
+          console.error('markEvidenceImages error', e);
+        }
+      })();
+
+      function autoWrapPerLetter(ids) {
+        if (!Array.isArray(ids)) return;
+        ids.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          var original = el.textContent || '';
+          el.setAttribute('aria-label', original.trim());
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < original.length; i++) {
+            var ch = original[i];
+            var span = document.createElement('span');
+            span.className = 'per-letter';
+            if (ch.toUpperCase() === 'D' || ch.toUpperCase() === 'M') {
+              span.classList.add('big');
+              span.classList.add('highlight');
+            } else {
+              if (id === 'heroTitle' && ch !== ' ') {
+                span.classList.add('lower');
+              }
+            }
+            span.textContent = (ch === ' ') ? '\u00A0' : ch;
+            frag.appendChild(span);
+          }
+          el.textContent = '';
+          el.appendChild(frag);
+        });
+      }
+      autoWrapPerLetter(['logoText','heroTitle','catchText']);
+
+      if ('scrollRestoration' in history) { try { history.scrollRestoration = 'manual'; } catch(e){} }
+      window.addEventListener('load', function(){ window.scrollTo({ top:0, left:0, behavior:'auto' }); });
+
+      var mainPage = document.getElementById('mainPage');
+      var header = document.querySelector('.site-header');
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('section'));
+      var idToSection = {};
+      tabs.forEach(function(t){ var id = t.getAttribute('data-target'); if (id) idToSection[id] = document.getElementById(id); });
+
+      var EXTRA_OFFSET_AISATSU = 60;
+      var DEFAULT_OFFSET = 20;
+      var suppressObserver = false;
+      var lastClickedIndex = null;
+      var lastClickTime = 0;
+      var sectionRanges = [];
+
+      header && header.setAttribute('aria-hidden','false');
+      mainPage && mainPage.setAttribute('aria-hidden','false');
+      document.body.classList.add('show-ui');
+
+      function clearAllTabActive(){ tabs.forEach(function(x){ x.classList.remove('active'); }); }
+      function computeSectionRanges(){ sectionRanges = sections.map(function(s){ var rect = s.getBoundingClientRect(); var top = Math.round(rect.top + window.pageYOffset); var bottom = Math.round(rect.bottom + window.pageYOffset); return { el:s, top:top, bottom:bottom, id:s.id||null, dataIndex:s.getAttribute('data-index') }; }); }
+      function updateActiveTabByScroll(){ if (sectionRanges.length===0) computeSectionRanges(); var headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'))||72; var baseline = window.pageYOffset + headerHeight + 10; var found = sectionRanges.find(function(item){ return baseline >= item.top && baseline < item.bottom; }); if (!found){ var best=null,bestDist=Infinity; for(var i=0;i<sectionRanges.length;i++){ var item=sectionRanges[i]; var center=Math.round((item.top+item.bottom)/2); var d=Math.abs(center-baseline); if(d<bestDist){bestDist=d;best=item;} } found=best; } clearAllTabActive(); if(!found) return; var targetIndex = found.dataIndex !== null ? String(found.dataIndex) : null; var matchingTab = null; if (targetIndex !== null) matchingTab = tabs.find(function(tab){ return tab.getAttribute('data-index') === targetIndex; }); if (!matchingTab && found.id) matchingTab = tabs.find(function(tab){ return tab.getAttribute('data-target') === found.id; }); if (matchingTab) matchingTab.classList.add('active'); }
+
+      function smoothScrollToAndLock(targetTop, targetIndex){ suppressObserver=true; lastClickedIndex=String(targetIndex); lastClickTime=Date.now(); window.scrollTo({ top: Math.max(0, Math.round(targetTop)), behavior:'smooth' }); var start=Date.now(); var maxWait=2000; var checkInterval=40; var lastPos=window.pageYOffset; var intervalId = setInterval(function(){ var now=Date.now(); var cur=window.pageYOffset; var dist=Math.abs(cur-targetTop); if (dist<=6 || (Math.abs(cur-lastPos)<0.5 && now-lastClickTime>120)){ clearInterval(intervalId); clearAllTabActive(); var clickedTab = tabs.find(function(tab){ return tab.getAttribute('data-index') === String(targetIndex); }); if (clickedTab) clickedTab.classList.add('active'); suppressObserver=false; lastClickedIndex=null; lastClickTime=0; return; } if (now-start>maxWait){ clearInterval(intervalId); clearAllTabActive(); var clickedTab2 = tabs.find(function(tab){ return tab.getAttribute('data-index') === String(targetIndex); }); if (clickedTab2) clickedTab2.classList.add('active'); suppressObserver=false; lastClickedIndex=null; lastClickTime=0; return; } lastPos = cur; }, checkInterval); }
+
+      tabs.forEach(function(t){ t.classList.remove('active'); t.addEventListener('click', function(){ var targetId = t.getAttribute('data-target'); var targetEl = idToSection[targetId]; if (!targetEl && targetId !== 'home') return; computeSectionRanges(); clearAllTabActive(); t.classList.add('active'); t.blur(); var headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 72; if (targetId === 'home') { smoothScrollToAndLock(0,0); } else { var extraOffset = (targetId === 'aisatsu') ? EXTRA_OFFSET_AISATSU : DEFAULT_OFFSET; var targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight + extraOffset; smoothScrollToAndLock(targetTop, t.getAttribute('data-index')); } }); });
+
+      var revealObserver = new IntersectionObserver(function(entries){ entries.forEach(function(entry){ if (entry.isIntersecting) entry.target.classList.add('revealed'); }); }, { threshold: 0.1 });
+      sections.forEach(function(s){ revealObserver.observe(s); });
+
+      var flowRows = Array.prototype.slice.call(document.querySelectorAll('.flow-row'));
+      var flowObserver = new IntersectionObserver(function(entries){ entries.forEach(function(entry){ if (entry.isIntersecting) entry.target.classList.add('in-view'); }); }, { threshold: 0.18 });
+      flowRows.forEach(function(r){ flowObserver.observe(r); });
+
+      var ticking = false;
+      function onScroll(){ if (suppressObserver) return; if (lastClickedIndex !== null) return; if (ticking) return; ticking = true; requestAnimationFrame(function(){ updateActiveTabByScroll(); ticking = false; }); }
+      var resizeTimer = null;
+      function onResize(){ if (resizeTimer) clearTimeout(resizeTimer); resizeTimer = setTimeout(function(){ computeSectionRanges(); updateActiveTabByScroll(); }, 120); }
+      computeSectionRanges();
+      updateActiveTabByScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onResize);
+      window.addEventListener('load', function(){ setTimeout(function(){ computeSectionRanges(); updateActiveTabByScroll(); }, 300); });
+
+      window.addEventListener('hashchange', function(){ var hash = location.hash.replace('#',''); if (!hash) return; var el = document.getElementById(hash); if (!el) return; var headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 72; var extraOffset = (hash === 'aisatsu') ? EXTRA_OFFSET_AISATSU : DEFAULT_OFFSET; var targetTop = el.getBoundingClientRect().top + window.pageYOffset - headerHeight + extraOffset; smoothScrollToAndLock(targetTop, el.getAttribute('data-index') || 0); });
+    })();
+  </script>
+
+  <script>
+    (function(){
+      var form = document.getElementById('contactForm');
+      if (form) {
+        var note = form.querySelector('.form-note');
+        var recipient = 'homepage.wakuwaku@gmail.com';
+        function encodeMailto(params){ return 'mailto:' + params.to + '?subject=' + encodeURIComponent(params.subject) + '&body=' + encodeURIComponent(params.body); }
+        form.addEventListener('submit', function(e){ e.preventDefault(); var name = form.elements['name'].value.trim(); var tel = form.elements['tel'].value.trim(); var email = form.elements['email'].value.trim(); var message = form.elements['message'].value.trim(); if (!name) { note.textContent = 'お名前を入力してください。'; form.elements['name'].focus(); return; } if (!email) { note.textContent = 'メールアドレスを入力してください。'; form.elements['email'].focus(); return; } if (!message) { note.textContent = 'お問い合わせ内容を入力してください。'; form.elements['message'].focus(); return; } var subject = '【お問い合わせ】' + name; var bodyLines = ['お名前: ' + name, '電話番号: ' + (tel || '（未入力）'), 'メールアドレス: ' + email, '', '--- お問い合わせ内容 ---', message, '', '--- 送信元情報 ---', '送信日時: ' + new Date().toLocaleString()]; var body = bodyLines.join('\n'); var mailto = encodeMailto({ to: recipient, subject: subject, body: body }); window.location.href = mailto; note.textContent = 'メールクライアントが起動します。起動しない場合は、上記のメールアドレス宛に手動でご送信ください。'; });
+      }
+
+      var casesData = [
+        { img:'evidence1.jpg', channel:'あつあつ体育の先生', url:'https://www.tiktok.com/@atsuatsu_pe_teacher', channelIcon:'evidence_icon1.jpg', genre:'子育て教育', intro:'投稿7本目200万再生\n100万再生連発\n運動イベント集客50名超え' },
+        { img:'evidence2.jpg', channel:'オレの名はBOSS【株式会社 幸】 様', url:'https://www.tiktok.com/@kisen.boss', channelIcon:'evidence_icon2.jpg', genre:'飲食業', intro:'投稿15本目で50万再生\n出店イベントで集客成功' },
+        { img:'evidence3.jpg', channel:'KOBE起業家ふざけんぢ 様', url:'https://www.tiktok.com/@kobe_kigyouka', channelIcon:'evidence_icon3.jpg', genre:'BAR（新店舗オープン）', intro:'1本目から8万再生\nビジネスパートナー1件獲得' },
+        { img:'evidence4.jpg', channel:'ちえとちか / 尼の税理士姉妹 様', url:'https://www.tiktok.com/@ama.sisters2025', channelIcon:'evidence_icon4.jpg', genre:'税理士', intro:'YouTube投稿3本目ショート動画からの流入で本編動画3,000再生超え' },
+        { img:'evidence5.jpg', channel:'温浴戦隊ダイレオ 様', url:'https://www.tiktok.com/@daileo1976', channelIcon:'evidence_icon5.jpg', genre:'製造業', intro:'採用コンテンツ投降後、\n問い合わせ2件あり' },
+        { img:'evidence6.jpg', channel:'Lounge近江 様', url:'https://www.tiktok.com/@loungeoumi0219', channelIcon:'evidence_icon6.jpg', genre:'飲食サービス', intro:'投稿1本 キャスト2件問い合わせ\nボーイ3件問い合わせ' },
+        { img:'evidence7.jpg', channel:'色彩塗装王子 / ユースケ 様', url:'https://www.tiktok.com/@universalyusuke', channelIcon:'evidence_icon7.jpg', genre:'塗装', intro:'投稿10本目以降、再生回数アベレージ1000回超え連発' }
+      ];
+
+      var trackEl = document.getElementById('carouselTrack');
+      var prevBtn = document.getElementById('carouselPrev');
+      var nextBtn = document.getElementById('carouselNext');
+      var statusEl = document.getElementById('carouselStatus');
+
+      var VISIBLE = 3, BUFFER = 1, TOTAL = casesData.length;
+      var startIndex = 0, animating = false;
+
+      function createCard(dataIndex){
+        var idx = ((dataIndex % TOTAL) + TOTAL) % TOTAL;
+        var data = casesData[idx];
+
+        var card = document.createElement('div');
+        card.className = 'carousel-card';
+        card.setAttribute('role','group');
+        card.setAttribute('aria-label', data.channel || '');
+
+        var imageWrap = document.createElement('div');
+        imageWrap.className = 'card-image';
+
+        var link = document.createElement('a');
+        link.href = data.url || '#';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', (data.channel || '') + ' の事例へ移動');
+
+        var img = document.createElement('img');
+        img.src = data.img;
+        img.alt = data.channel || '';
+
+        link.appendChild(img);
+        imageWrap.appendChild(link);
+        card.appendChild(imageWrap);
+
+        var cap = document.createElement('div');
+        cap.className = 'carousel-caption';
+
+        var channelDiv = document.createElement('div');
+        channelDiv.className = 'carousel-channel';
+
+        if (data.channelIcon) {
+          var icon = document.createElement('img');
+          icon.className = 'channel-icon';
+          icon.src = data.channelIcon;
+          icon.alt = (data.channel || '') + ' アイコン';
+          channelDiv.appendChild(icon);
+        }
+
+        var nameSpan = document.createElement('span');
+        nameSpan.className = 'channel-name';
+        nameSpan.textContent = data.channel || '';
+        nameSpan.setAttribute('title', data.channel || '');
+
+        var underlineEl = document.createElement('span');
+        underlineEl.className = 'underline-bar';
+        nameSpan.appendChild(underlineEl);
+
+        channelDiv.appendChild(nameSpan);
+
+        var metaDiv = document.createElement('div');
+        metaDiv.className = 'carousel-meta';
+
+        if (data.genre) {
+          var g = document.createElement('div');
+          g.className = 'meta-badge';
+          var label = document.createElement('span');
+          label.className = 'meta-label';
+          label.textContent = '業種';
+          var value = document.createElement('span');
+          value.className = 'meta-value';
+          value.textContent = data.genre;
+          g.appendChild(label);
+          g.appendChild(value);
+          metaDiv.appendChild(g);
+        }
+
+        cap.appendChild(channelDiv);
+        cap.appendChild(metaDiv);
+
+        if (data.intro) {
+          var introWrap = document.createElement('div');
+          introWrap.className = 'meta-intro';
+          var iLabel = document.createElement('span');
+          iLabel.className = 'meta-label';
+          iLabel.textContent = '紹介';
+          var iText = document.createElement('span');
+          iText.className = 'intro-text';
+          iText.textContent = data.intro;
+          introWrap.appendChild(iLabel);
+          introWrap.appendChild(iText);
+          cap.appendChild(introWrap);
+        }
+
+        card.appendChild(cap);
+
+        try {
+          link.addEventListener('click', function () {
+            var self = this;
+            setTimeout(function () {
+              try { self.blur(); } catch (e) { }
+            }, 80);
+          }, { passive: true });
+          link.addEventListener('mousedown', function () {
+            try { this.blur(); } catch (e) {}
+          }, { passive: true });
+        } catch (e) {}
+
+        return card;
+      }
+
+      function buildFourCards(){
+        if (!trackEl) return;
+        trackEl.innerHTML = '';
+        for (var i=0;i<VISIBLE+BUFFER;i++){
+          var card = createCard(startIndex + i);
+          trackEl.appendChild(card);
+        }
+        trackEl.style.transition = 'none';
+        trackEl.style.transform = 'translateX(0)';
+        if (statusEl) statusEl.textContent = '現在 ' + (startIndex + 1) + ' / ' + TOTAL;
+        (function markNewEvidence(){
+          try {
+            var imgs = trackEl.querySelectorAll('img');
+            for (var k=0;k<imgs.length;k++){
+              var s = imgs[k].getAttribute('src') || '';
+              if (/evidence/i.test(s)) {
+                imgs[k].classList.add('evidence-img');
+                var a = imgs[k].closest('a');
+                if (a) a.classList.add('evidence-link');
+              }
+            }
+          } catch(e){ }
+        })();
+      }
+
+      function getCardWidthAndGap(){
+        var card = trackEl ? trackEl.querySelector('.carousel-card') : null;
+        if (!card) return { cardW:0, gap:16 };
+        var rect = card.getBoundingClientRect();
+        var style = window.getComputedStyle(trackEl);
+        var gap = parseFloat(style.getPropertyValue('gap')) || 16;
+        return { cardW: Math.round(rect.width), gap: gap };
+      }
+
+      function slideNext(){
+        if (animating) return;
+        animating = true;
+        var dims = getCardWidthAndGap();
+        var shift = dims.cardW + dims.gap;
+        var nextDataIndex = startIndex + VISIBLE + BUFFER - 1;
+        var newCard = createCard(nextDataIndex);
+        trackEl.appendChild(newCard);
+        requestAnimationFrame(function(){ trackEl.style.transition = 'transform 420ms cubic-bezier(.22,.9,.3,1)'; trackEl.style.transform = 'translateX(' + (-shift) + 'px)'; });
+        var onEnd = function(){
+          trackEl.removeEventListener('transitionend', onEnd);
+          var first = trackEl.firstElementChild; if (first) trackEl.removeChild(first);
+          startIndex = (startIndex + 1) % TOTAL;
+          trackEl.style.transition = 'none'; trackEl.style.transform = 'translateX(0)'; void trackEl.offsetWidth; trackEl.style.transition = 'transform 420ms cubic-bezier(.22,.9,.3,1)';
+          var children = Array.prototype.slice.call(trackEl.children);
+          for (var i=0;i<children.length;i++){
+            var idx = startIndex + i;
+            var card = children[i];
+            var img = card.querySelector('img');
+            var expected = casesData[((idx % TOTAL) + TOTAL) % TOTAL].img;
+            if (img && img.src && !img.src.endsWith(expected)){
+              var replacement = createCard(idx);
+              trackEl.replaceChild(replacement, card);
+            }
+          }
+          if (statusEl) statusEl.textContent = '現在 ' + (startIndex + 1) + ' / ' + TOTAL;
+          setTimeout(function(){ animating = false; }, 40);
+        };
+        trackEl.addEventListener('transitionend', onEnd);
+      }
+
+      function slidePrev(){
+        if (animating) return;
+        animating = true;
+        var dims = getCardWidthAndGap();
+        var shift = dims.cardW + dims.gap;
+        var newHeadIndex = startIndex - 1;
+        var newCard = createCard(newHeadIndex);
+        trackEl.insertBefore(newCard, trackEl.firstElementChild);
+        trackEl.style.transition = 'none';
+        trackEl.style.transform = 'translateX(' + (-shift) + 'px)';
+        void trackEl.offsetWidth;
+        requestAnimationFrame(function(){ trackEl.style.transition = 'transform 420ms cubic-bezier(.22,.9,.3,1)'; trackEl.style.transform = 'translateX(0)'; });
+        var onEnd = function(){
+          trackEl.removeEventListener('transitionend', onEnd);
+          var last = trackEl.lastElementChild; if (last) trackEl.removeChild(last);
+          startIndex = ((startIndex - 1) % TOTAL + TOTAL) % TOTAL;
+          var children = Array.prototype.slice.call(trackEl.children);
+          for (var i=0;i<children.length;i++){
+            var idx = startIndex + i;
+            var card = children[i];
+            var img = card.querySelector('img');
+            var expected = casesData[((idx % TOTAL) + TOTAL) % TOTAL].img;
+            if (img && img.src && !img.src.endsWith(expected)){
+              var replacement = createCard(idx);
+              trackEl.replaceChild(replacement, card);
+            }
+          }
+          if (statusEl) statusEl.textContent = '現在 ' + (startIndex + 1) + ' / ' + TOTAL;
+          setTimeout(function(){ animating = false; }, 40);
+        };
+        trackEl.addEventListener('transitionend', onEnd);
+      }
+
+      function preloadAll(){ casesData.forEach(function(d){ var i = new Image(); i.src = d.img; if (d.channelIcon){ var j = new Image(); j.src = d.channelIcon; } }); }
+
+      function initCarousel(){ preloadAll(); startIndex = 0; buildFourCards(); nextBtn && nextBtn.addEventListener('click', slideNext); prevBtn && prevBtn.addEventListener('click', slidePrev); document.addEventListener('keydown', function(e){ if (e.key === 'ArrowRight') slideNext(); if (e.key === 'ArrowLeft') slidePrev(); }); var rt = null; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ buildFourCards(); }, 120); }); }
+
+      window.addEventListener('load', function(){ setTimeout(function(){ document.querySelectorAll('section').forEach(function(s){ s.classList.add('revealed'); }); }, 120); initCarousel(); });
+
+    })();
+  </script>
+
+  <script>
+  (function(){
+    function applyEvidenceBehavior(root) {
+      root = root || document;
+      var cards = root.querySelectorAll('.cases-carousel .carousel-card');
+      cards.forEach(function(card){
+        card.style.transform = 'none';
+        card.style.transition = 'none';
+        card.addEventListener('mouseenter', function(){ card.style.transform = 'none'; }, {
+          passive: true
+        });
+        card.addEventListener('mouseleave', function(){ card.style.transform = 'none'; }, {
+          passive: true
+        });
+      });
+    }
+    applyEvidenceBehavior(document);
+    var observer = new MutationObserver(function(mutations){
+      mutations.forEach(function(m){
+        if (m.addedNodes && m.addedNodes.length){
+          applyEvidenceBehavior(document);
+        }
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  })();
+  </script>
+
+</body>
+</html>
