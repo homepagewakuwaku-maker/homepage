@@ -62,7 +62,11 @@
     .tab{padding:8px 14px;border-radius:12px;background:transparent;border:none;font-weight:700;cursor:pointer;}
     .tab:focus{outline:2px solid rgba(37,244,238,0.5);outline-offset:2px;}
 
-    /* HOME 背景は JS で確実に存在するファイルを選んで設定します（CSS 側はフォールバックなし） */
+    /*
+      HOME: フルブリード（画面横一杯）で表示するための調整
+      - width:100vw と margin-left: calc(50% - 50vw) でビューポート幅いっぱいに広げる
+      - 背景画像はまず GitHub Pages 上の絶対パスを優先して設定（JS でもフォールバックを試行）
+    */
     section#home{
       margin-top: var(--header-height);
       min-height: calc(100vh - var(--header-height));
@@ -76,6 +80,12 @@
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
+
+      /* フルブリード */
+      width: 100vw;
+      max-width: none;
+      margin-left: calc(50% - 50vw);
+      box-sizing: border-box;
     }
 
     section#home::before{
@@ -772,7 +782,11 @@
     </div>
   </header>
 
-  <section id="home" class="hero-text" data-index="0" aria-label="ホーム">
+  <!--
+    section#home の背景はまず GitHub Pages 上の絶対パスを優先して設定します。
+    これで優先順位の問題（相対パスの解釈や大文字小文字差）を回避します。
+  -->
+  <section id="home" class="hero-text" data-index="0" aria-label="ホーム" style="background-image: url('https://homepagewakuwaku-maker.github.io/homepage/HOME.png');">
     <div class="hero-inner">
       <div class="headline-wrap" aria-hidden="false" style="position:relative;display:inline-block;">
         <div class="headline-ambient" aria-hidden="true"></div>
@@ -1101,6 +1115,7 @@
       var nextBtn = document.getElementById('carouselNext');
       var statusEl = document.getElementById('carouselStatus');
 
+      // 初期表示を「元の見え方」に戻すため VISIBLE を 3 に固定（初期の表示方法を再現）
       var VISIBLE = 3, BUFFER = 1, TOTAL = casesData.length;
       var startIndex = 0, animating = false;
 
@@ -1342,37 +1357,42 @@
   </script>
 
   <!--
-    HOME.png が表示されない問題への対処:
-    - GitHub Pages はファイル名の大文字小文字を区別します。
-    - ここでは JS で複数の候補（HOME.png, HOME.PNG, home.png, home.PNG）を順に試し、
-      存在する最初のファイルを section#home の背景に設定します。
-    - リポジトリ上の実際のファイル名に合わせるのが最も確実ですが、
-      このスクリプトを入れておくとケース差異に強くなります。
+    HOME.png が表示されない問題への追加対処:
+    - まずは GitHub Pages 上の絶対パスを優先して background-image に設定（上の inline style）。
+    - それでも表示されない場合に備え、JS で複数候補（大文字小文字違い）を順にチェックして最初に見つかったものを設定します。
+    - さらに、キャッシュや相対パスの問題を避けるため、絶対 URL の候補もチェックします。
   -->
   <script>
     (function(){
       var homeEl = document.getElementById('home');
       if (!homeEl) return;
+
+      // 優先: GitHub Pages 上の絶対パス（ユーザー提供の URL）
+      var ghBase = 'https://homepagewakuwaku-maker.github.io/homepage/';
       var candidates = [
+        ghBase + 'HOME.png',
+        ghBase + 'HOME.PNG',
+        ghBase + 'home.png',
+        ghBase + 'home.PNG',
+        ghBase + 'Home.png',
+        ghBase + 'Home.PNG',
         'HOME.png',
         'HOME.PNG',
         'home.png',
-        'home.PNG',
-        'Home.png',
-        'Home.PNG'
+        'home.PNG'
       ];
 
       function checkImage(url, cb) {
         var img = new Image();
         img.onload = function(){ cb(true); };
         img.onerror = function(){ cb(false); };
-        // add cache-busting only if needed; avoid by default
+        // 直接代入（ブラウザがキャッシュしている場合は速い）
         img.src = url;
       }
 
       (function tryNext(i){
         if (i >= candidates.length) {
-          // 最後の手段: 何も見つからなければ、背景色を薄くしておく
+          // 見つからなければ薄い背景色にしておく（視認性確保）
           homeEl.style.backgroundColor = '#f6f8fb';
           return;
         }
@@ -1382,6 +1402,7 @@
             homeEl.style.backgroundImage = 'url("' + url + '")';
             homeEl.style.backgroundSize = 'cover';
             homeEl.style.backgroundPosition = 'center center';
+            homeEl.style.backgroundRepeat = 'no-repeat';
           } else {
             tryNext(i+1);
           }
